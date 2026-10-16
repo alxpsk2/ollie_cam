@@ -5,7 +5,7 @@ from pathlib import Path
 import cv2
 from picamera2 import Picamera2
 
-# --- Tunable settings --- 
+# --- Tunable settings ---
 MIN_AREA = 5000  # Minimum area size for motion detection
 PIXEL_THRESHOLD = 25  # Pixel intensity difference threshold for motion detection
 COOLDOWN_TIME = 10  # Cooldown time in seconds between motion detections
@@ -42,9 +42,7 @@ try:
         thresh = cv2.threshold(delta, PIXEL_THRESHOLD, 255, cv2.THRESH_BINARY)[1]
         thresh = cv2.dilate(thresh, None, iterations=2)
 
-        contours, _ = cv2.findContours(
-            thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
-        )
+        contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         largest = max((cv2.contourArea(c) for c in contours), default=0)
 
         now = time.time()
